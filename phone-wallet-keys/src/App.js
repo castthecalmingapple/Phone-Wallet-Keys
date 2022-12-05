@@ -1,24 +1,40 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react'
+import Item from './components/Item'
 
 function App() {
+  const [input, setInput] = useState("")
+  const [items, setItems] = useState([])
+
+  function handleChange(event){
+    setInput(event.target.value)
+  }
+
+  function addItem(){
+    setItems(prevItems => [...prevItems, input])
+    setInput("")
+  }
+
+  function removeItem(){
+    // setItems(items.filter(item => item.key !== id))
+    console.log("clicked!")
+  }
+
+  function clearItems(){
+    setItems([])
+  }
+
+  console.log(items)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <header>
+      <input className="itemInput" type="text" value={input} onChange={handleChange}/>
+      <button onClick={addItem}>Add</button>
+      <button onClick={clearItems}>Clear All</button>
+      <Item  onClick={removeItem} items={items} />
+    </header>
+    </>
   );
 }
 
